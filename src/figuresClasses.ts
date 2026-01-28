@@ -18,22 +18,22 @@ export class Triangle implements Figure {
     public b: number,
     public c: number,
   ) {
+    if (a <= 0 || b <= 0 || c <= 0) {
+      throw new Error('sides must be positive numbers');
+    }
+
     const longestSide: number = Math.max(a, b, c);
     const sumOfOthers: number = a + b + c - longestSide;
 
     if (sumOfOthers <= longestSide) {
-      throw new Error('the triangle can not be 0 or less');
-    }
-
-    if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('one of sides does not exist');
+      throw new Error('sides cannot form a valid triangle');
     }
   }
 
   getArea(): number {
     const s = (this.a + this.b + this.c) / 2;
     const area = Math.sqrt(s * (s - this.a) * (s - this.b) * (s - this.c));
-    return Math.round(area * 100) / 100;
+    return Math.floor(area * 100) / 100;
   }
 }
 
@@ -45,7 +45,7 @@ export class Circle implements Figure {
     public radius: number,
   ) {
     if (radius <= 0) {
-      throw new Error('the radius can not be 0 or less');
+      throw new Error('radius must be a positive number');
     }
   }
 
@@ -64,12 +64,12 @@ export class Rectangle implements Figure {
     public height: number,
   ) {
     if (width <= 0 || height <= 0) {
-      throw new Error('Width and height must be greater than 0');
+      throw new Error('width and height must be positive numbers');
     }
   }
 
   getArea(): number {
-    return Math.round(this.width * this.height * 100) / 100;
+    return Math.floor(this.width * this.height * 100) / 100;
   }
 }
 
